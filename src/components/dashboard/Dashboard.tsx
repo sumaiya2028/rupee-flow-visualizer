@@ -1,12 +1,12 @@
-
 import { useState } from "react";
 import TransactionsList, { Transaction } from "./TransactionsList";
 import ExpenseSummary from "./ExpenseSummary";
 import SpendingTrends from "./SpendingTrends";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { IndianRupee, PieChart, BarChart3, List, Filter } from "lucide-react";
+import { IndianRupee, PieChart, BarChart3, List } from "lucide-react";
+import ExpenseForm from "../expenses/ExpenseForm";
+import GoalForm from "../goals/GoalForm";
 
-// Sample data for demo
 const generateSampleTransactions = (): Transaction[] => {
   const categories = ["Groceries", "Medical", "Shopping", "Entertainment", "Travel", "Food", "Utilities", "Salary"];
   const descriptions = [
@@ -19,7 +19,6 @@ const generateSampleTransactions = (): Transaction[] => {
   const transactions: Transaction[] = [];
   const today = new Date();
   
-  // Generate 50 transactions over the last 3 months
   for (let i = 0; i < 50; i++) {
     const date = new Date(today);
     date.setDate(today.getDate() - Math.floor(Math.random() * 90));
@@ -41,14 +40,38 @@ const generateSampleTransactions = (): Transaction[] => {
     });
   }
   
-  // Sort by date (newest first)
   return transactions.sort((a, b) => b.date.getTime() - a.date.getTime());
 };
 
 const Dashboard = () => {
-  const [transactions] = useState<Transaction[]>(generateSampleTransactions());
-  
-  // Calculate totals
+  const [transactions, setTransactions] = useState<Transaction[]>(generateSampleTransactions());
+
+  const handleAddExpense = (expense: {
+    amount: number;
+    category: string;
+    description: string;
+    date: Date;
+  }) => {
+    const newTransaction: Transaction = {
+      id: `tx-${Date.now()}`,
+      amount: expense.amount,
+      type: "debit",
+      category: expense.category,
+      description: expense.description,
+      date: expense.date
+    };
+
+    setTransactions(prev => [newTransaction, ...prev]);
+  };
+
+  const handleAddGoal = (goal: {
+    name: string;
+    targetAmount: number;
+    deadline: Date;
+  }) => {
+    console.log("New goal set:", goal);
+  };
+
   const totalIncome = transactions
     .filter(t => t.type === "credit")
     .reduce((sum, tx) => sum + tx.amount, 0);
@@ -68,6 +91,11 @@ const Dashboard = () => {
         </h1>
         <p className="text-muted-foreground">Your financial data at your fingertips</p>
       </header>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+        <ExpenseForm onAddExpense={handleAddExpense} />
+        <GoalForm onAddGoal={handleAddGoal} />
+      </div>
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
         <div className="bg-gradient-to-r from-rupeeflow-teal to-rupeeflow-teal/80 text-white rounded-xl p-4 shadow">
