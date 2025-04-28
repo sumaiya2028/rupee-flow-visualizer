@@ -6,20 +6,12 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Target } from "lucide-react";
 
-interface GoalFormProps {
-  onAddGoal: (goal: {
-    name: string;
-    targetAmount: number;
-    deadline: Date;
-  }) => void;
-}
-
-const GoalForm = ({ onAddGoal }: GoalFormProps) => {
+const GoalForm = ({ onAddGoal }) => {
   const [name, setName] = useState("");
   const [targetAmount, setTargetAmount] = useState("");
   const [deadline, setDeadline] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (!name || !targetAmount || !deadline) return;
 

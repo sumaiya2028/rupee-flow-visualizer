@@ -1,11 +1,11 @@
+
 import { useState } from "react";
-import { Transaction } from "./TransactionsList";
 import FinancialSummary from "./FinancialSummary";
 import DashboardTabs from "./DashboardTabs";
 import FormSection from "./FormSection";
 import Navbar from "../navigation/Navbar";
 
-const generateSampleTransactions = (): Transaction[] => {
+const generateSampleTransactions = () => {
   const categories = ["Groceries", "Medical", "Shopping", "Entertainment", "Travel", "Food", "Utilities", "Salary"];
   const descriptions = [
     "BigBasket Order", "Apollo Pharmacy", "Amazon Purchase", "BookMyShow Tickets", 
@@ -14,7 +14,7 @@ const generateSampleTransactions = (): Transaction[] => {
     "Petrol", "Restaurant Bill", "Mobile Recharge", "Interest Credit"
   ];
   
-  const transactions: Transaction[] = [];
+  const transactions = [];
   const today = new Date();
   
   for (let i = 0; i < 50; i++) {

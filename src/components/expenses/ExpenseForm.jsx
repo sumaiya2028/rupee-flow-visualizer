@@ -7,16 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Plus } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
-interface ExpenseFormProps {
-  onAddExpense: (expense: {
-    amount: number;
-    category: string;
-    description: string;
-    date: Date;
-  }) => void;
-}
-
-const ExpenseForm = ({ onAddExpense }: ExpenseFormProps) => {
+const ExpenseForm = ({ onAddExpense }) => {
   const [amount, setAmount] = useState("");
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
@@ -32,7 +23,7 @@ const ExpenseForm = ({ onAddExpense }: ExpenseFormProps) => {
     "Utilities"
   ];
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (!amount || !category || !date) return;
 
