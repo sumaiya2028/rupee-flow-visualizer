@@ -1,15 +1,11 @@
 
 import { PieChart, BarChart3, List } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import TransactionsList, { Transaction } from "./TransactionsList";
+import TransactionsList from "./TransactionsList";
 import ExpenseSummary from "./ExpenseSummary";
 import SpendingTrends from "./SpendingTrends";
 
-interface DashboardTabsProps {
-  transactions: Transaction[];
-}
-
-const DashboardTabs = ({ transactions }: DashboardTabsProps) => {
+const DashboardTabs = ({ transactions }) => {
   return (
     <Tabs defaultValue="charts" className="mb-8">
       <TabsList className="grid grid-cols-3 w-full max-w-md mx-auto">
